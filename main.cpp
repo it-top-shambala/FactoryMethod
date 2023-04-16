@@ -2,14 +2,16 @@
 
 #include "Game.h"
 #include "GameHelper.h"
+#include "Builder.h"
 
 using namespace std;
 
 int main() {
     Game* game = new Game();
+    GameHelper* gameHelper = new GameHelper();
 
-    SelectHero(game, TypeHero::Hero);
-    SelectHero(game, TypeHero::Enemy);
+    Builder* builder = new Builder(game);
+    builder->BuildHeroes(gameHelper->ChoiseClassHero(), gameHelper->ChoiseClassEnemy());
 
     game->Attack();
 

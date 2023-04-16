@@ -1,12 +1,17 @@
-# Фабричный метод
+# Фабричный метод и Строитель
 
-## Factory Method, Фабричный метод
-
-Реализация паттерна фабричный метод на `C++`
+Реализация паттернов фабричный метод и строитель на `C++`
 
 ```mermaid
 classDiagram
 
+Game *-- Program
+Builder *-- Program
+GameHelper *-- Program
+class Program {
+    + main()
+}
+        
 class Hero {
     <<abstract>>
     # name : string
@@ -84,12 +89,21 @@ class TypeClassHero {
 
 TypeHero <-- GameHelper
 TypeClassHero <-- GameHelper
-Game <-- GameHelper
 class GameHelper {
-    + ChoiseClassHero(type: TypeHero) TypeClassHero
-    + CreateHero(game: Game, type: TypeClassHero) void
-    + CreateEnemy(game: Game, type: TypeClassHero) void
-    + SelectHero(game: Game, type: TypeHero) void
+    - ChoiseClass(type : TypeHero) TypeClassHero
+    + ChoiseClassHero() TypeClassHero
+    + ChoiseClassEnemy() TypeClassHero
 }
 
+TypeHero <-- Builder
+TypeClassHero <-- Builder
+Game *-- Builder
+class Builder {
+    - game : Game
+    - CreateHero(type: TypeClassHero) void
+    - CreateEnemy(type: TypeClassHero) void
+    - SelectHero(type: TypeHero, typeClass: TypeClassHero) void
+    + Builder(game : Game)
+    + BuildHeroes(hero : TypeClassHero, enemy : TypeClassHero) void
+}
 ```
